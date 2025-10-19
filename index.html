@@ -13,12 +13,19 @@
       rel="stylesheet"
     />
 
+    <!-- fontawesome icons -->
+    <script
+      src="https://kit.fontawesome.com/903f6a3fe0.js"
+      crossorigin="anonymous"
+    ></script>
     <!-- Feather icons -->
     <script src="https://unpkg.com/feather-icons"></script>
 
     <!-- My style -->
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/accordion.css" />
+    <link rel="stylesheet" href="css/features.css" />
   </head>
   <body>
     <!-- Navbar Start -->
@@ -71,6 +78,18 @@
     <!-- about section start -->
     <section class="about" id="about">
       <h2><span>Tentang</span> Kami</h2>
+      <p style="padding-bottom: 0.5rem">
+        FZ Wallpaper & Interior hadir sebagai solusi bagi Anda yang ingin
+        menghadirkan suasana baru di dalam hunian maupun ruang kerja. Kami
+        percaya bahwa keindahan ruangan bukan hanya berasal dari desain yang
+        menarik, tetapi juga dari kenyamanan dan ketelitian dalam setiap detail.
+        Dengan pengalaman di bidang interior, kami berkomitmen untuk memberikan
+        hasil terbaik melalui produk berkualitas, bahan pilihan, serta pelayanan
+        yang profesional.
+      </p>
+      <p style="padding-bottom: 2rem; text-align: center;">
+        -----
+      </p>
 
       <div class="row">
         <div class="about-img">
@@ -78,23 +97,70 @@
         </div>
         <div class="content">
           <h3>Kenapa memilih kami?</h3>
-          <p>
-            FZ Wallpaper & Interior hadir sebagai solusi bagi Anda yang ingin
-            menghadirkan suasana baru di dalam hunian maupun ruang kerja. Kami
-            percaya bahwa keindahan ruangan bukan hanya berasal dari desain yang
-            menarik, tetapi juga dari kenyamanan dan ketelitian dalam setiap
-            detail. Dengan pengalaman di bidang interior, kami berkomitmen untuk
-            memberikan hasil terbaik melalui produk berkualitas, bahan pilihan,
-            serta pelayanan yang profesional.
-          </p>
-          <p>
-            Kami tidak hanya menjual produk, tetapi menghadirkan nilai dan
-            pengalaman. Setiap wallpaper, wallpanel, dan elemen dekorasi kami
-            dipilih dan dipasang dengan presisi agar ruangan Anda tampak elegan
-            dan harmonis. FZ Wallpaper & Interior siap membantu Anda menciptakan
-            ruang yang memancarkan karakter, kehangatan, dan keindahan sesuai
-            dengan gaya hidup Anda.
-          </p>
+
+          <!-- Accordion Start -->
+          <div class="accordion">
+            <div class="accordion-item">
+              <button class="accordion-header">
+                <span class="number">01</span> Stok barang banyak
+                <span class="icon">›</span>
+              </button>
+              <div class="accordion-content">
+                <p>
+                  Kami memiliki banyak stok barang yang siap untuk dipasang.
+                </p>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-header">
+                <span class="number">02</span> Pemasangan rapi dan cepat
+                <span class="icon">›</span>
+              </button>
+              <div class="accordion-content">
+                <p>
+                  Tim kami memastikan hasil pemasangan rapi, cepat, dan presisi.
+                </p>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-header">
+                <span class="number">03</span> Barang berkualitas dan desain
+                timeless
+                <span class="icon">›</span>
+              </button>
+              <div class="accordion-content">
+                <p>
+                  Kami menggunakan bahan premium dengan desain yang elegan dan
+                  tahan lama mengikuti tren interior modern.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Accordion End -->
+
+          <!-- features start -->
+          <h3 style="padding-top: 2rem">Layanan kami :</h3>
+          <div class="about-services">
+            <div class="features-grid">
+              <article class="feature-card">
+                <div class="feature-icon"><i data-feather="briefcase"></i></div>
+                <h4>Pemasangan</h4>
+                <p>Kami menyediakan pemasangan untuk daerah sekitar toko.</p>
+              </article>
+
+              <article class="feature-card">
+                <div class="feature-icon"><i data-feather="users"></i></div>
+                <h4>Konsultasi Decor</h4>
+                <p>
+                  Kami sediakan konsultasi desain & product yang sesuai untuk
+                  kebutuhan Anda.
+                </p>
+              </article>
+            </div>
+          </div>
+          <!-- features end -->
         </div>
       </div>
     </section>
@@ -384,5 +450,51 @@
 
     <!-- Javascript -->
     <script src="js/script.js"></script>
+
+    <!-- accordion js -->
+    <script>
+      const accordions = document.querySelectorAll(".accordion-item");
+
+      accordions.forEach((item) => {
+        const header = item.querySelector(".accordion-header");
+        header.addEventListener("click", () => {
+          const openItem = document.querySelector(".accordion-item.active");
+          if (openItem && openItem !== item) {
+            openItem.classList.remove("active");
+          }
+          item.classList.toggle("active");
+        });
+      });
+    </script>
+
+    <!-- features js -->
+    <script>
+      // Render feather icons (pastikan sudah menyertakan feather.min.js di halaman)
+      if (window.feather) {
+        feather.replace();
+      }
+
+      // Opsi: efek fade-in saat cards masuk viewport
+      const cards = document.querySelectorAll(".feature-card");
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.style.opacity = 1;
+              e.target.style.transform = "translateY(0)";
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+
+      cards.forEach((c) => {
+        c.style.opacity = 0;
+        c.style.transform = "translateY(12px)";
+        c.style.transition = "opacity .5s ease, transform .5s ease";
+        io.observe(c);
+      });
+    </script>
   </body>
 </html>
